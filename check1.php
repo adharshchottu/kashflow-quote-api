@@ -1,16 +1,18 @@
 <?php
 
+//set the url to send api request
 $wsdl="https://securedwebapp.com/api/service.asmx?WSDL";
 $array=array(
-    'UserName' => 'ripul.chhabra@sowlab.com',
-    'Password' => 'kashflow',
-    'QuoteID' => 1
+    'UserName' => 'your username',
+    'Password' => 'your password',
+    'QuoteID' => your quote id
 );
 
 
 //print_r($array);
 echo '<br>';
 
+//initiate soap client
 $client = new SoapClient($wsdl,$array);
 //$result = $client->GetQuoteByID($array);
 //echo  gettype($result);
@@ -18,11 +20,12 @@ echo '<br>';
 //print_r($result);
 echo '<br>';
 
-
-$parameters['UserName'] = "ripul.chhabra@sowlab.com";
-$parameters['Password'] = "kashflow";
-$parameters['QuoteNumber'] = "1";
+//set parameters
+$parameters['UserName'] = "your username";
+$parameters['Password'] = "your password";
+$parameters['QuoteNumber'] = "your quote number";
 //$response = $client->GetCustomers($parameters);
+//return data using soap request
 $rond = $client->GetQuoteByNumber ($parameters);
 //print_r($response);
 echo '<br>';
@@ -37,8 +40,8 @@ $der = json_decode(json_encode($rond), true);
 if ($der['Status'] == "OK")
 {
 $customerID = $der['GetQuoteByNumberResult']['CustomerID'];
-$passv['UserName'] = "ripul.chhabra@sowlab.com";
-$passv['Password'] = "kashflow";
+$passv['UserName'] = "your username";
+$passv['Password'] = "your password";
 $passv['CustomerID'] = $customerID;
 $res = $client->GetCustomerByID($passv);
 $actsend = json_decode(json_encode($res), true);
@@ -62,10 +65,9 @@ $encodedjson=json_encode($jsontosend);
 
 /* activeCampaign API */
 if(isset($email)||isset($fName)){
-    $sendp = '{"contact":{"email":"ripul.chhabra@sowlab.com","firstName":"Ripul","lastName":"Chhabra","phone":"9846383798"}}';
-    $apiurl = 'https://sowlab1616567849.api-us1.com/api/3/contact/sync';
-    $token = '01ff8dae395081e6f65bacda4bf4d5fc72b036c276f22b9453d46bb8b2ba0c62fef1f56a';
-    $httphead = array('Api-Token : 01ff8dae395081e6f65bacda4bf4d5fc72b036c276f22b9453d46bb8b2ba0c62fef1f56a','Accept: application/json',
+    $apiurl = 'https://youraccountname.api-us1.com/api/3/contact/sync';
+    $token = 'your api token';
+    $httphead = array('Api-Token : your api token','Accept: application/json',
     'Content-Type: application/json',);
     $curl=curl_init();
     $a = curl_setopt($curl, CURLOPT_URL, $apiurl);
